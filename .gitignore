@@ -13,7 +13,6 @@ gradle/
 gradlew
 gradlew.bat
 settings.gradle
-<<<<<<< HEAD
 src/main/resources/
 src/test/
 .DS_Store
