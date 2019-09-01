@@ -1,8 +1,19 @@
+# Created by .ignore support plugin (zsh.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
 .gradle/
-.idea/
+build/
 gradle/
 gradlew
 gradlew.bat
 settings.gradle
+<<<<<<< HEAD
+src/main/resources/
+src/test/
 .DS_Store
-build/
