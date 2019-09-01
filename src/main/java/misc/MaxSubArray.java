@@ -8,6 +8,8 @@ public class MaxSubArray {
     }
 
     //Kadane's Algorithm - calculates the maximum contiguous subarray sum
+    //This implementation returns zero for an array that contains all negative numbers
+    //In order to return the smallest negative number, calculate max outside of the for loop
     public static int maxSum(int[] arr) {
         if (arr == null || arr.length == 0) {
             return 0;
