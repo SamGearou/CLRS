@@ -3,8 +3,7 @@ package misc;
 public class MaxSubArray {
 
     public static void main(String[] args) {
-        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        System.out.println(MaxSubArray.maxSum(arr));
+
     }
 
     //Kadane's Algorithm - calculates the maximum contiguous subarray sum
@@ -14,7 +13,7 @@ public class MaxSubArray {
         if (arr == null || arr.length == 0) {
             return 0;
         }
-        int max = arr[0];
+        int max = Math.max(arr[0], 0);
         for (int i = 1; i < arr.length; i++) {
             if (arr[i - 1] > 0) {
                 arr[i] += arr[i - 1];
@@ -24,5 +23,31 @@ public class MaxSubArray {
             }
         }
         return max;
+    }
+
+    //recursive version of the maximum contiguous subarray sum
+    public static int recursiveMaxSubArray(int[] arr) {
+        return 0;
+    }
+
+    public int maxCrossingSubArray(int[] arr, int low, int mid, int high) {
+        int leftSum = Integer.MIN_VALUE;
+        int maxLeft = mid;
+        int sum = 0;
+        for (int i = mid; i >= low; i--) {
+            sum += arr[i];
+            leftSum = Math.max(leftSum, sum);
+            maxLeft = i;
+        }
+
+        int rightSum = Integer.MIN_VALUE;
+        int maxRight = mid;
+        sum = 0;
+        for (int i = mid + 1; i <= high; i++) {
+            sum += arr[i];
+            rightSum = Math.max(rightSum, sum);
+            maxRight = 0; //TODO
+        }
+        return 0; //TODO
     }
 }
