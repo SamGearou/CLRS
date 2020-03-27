@@ -9,6 +9,10 @@ public class Heap<T extends Comparable<T>> {
         count = 0;
     }
 
+    //buildHeap(T[] arr){
+    //call minHeapifyUp(index, arr) that will take an extra parameter that is the array you want to heapify
+    //}
+
     public void add(T element) {
         data[count] = element;
         minHeapifyUp(count);
