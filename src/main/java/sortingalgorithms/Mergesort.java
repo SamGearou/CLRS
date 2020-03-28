@@ -7,6 +7,7 @@ public class Mergesort {
         printArray(mergeSort(arr, 0, arr.length - 1));
     }
 
+    //stable sort
     public static int[] mergeSort(int[] arr, int p, int r) {
         if (p < r) {
             int q = (p + r) / 2;

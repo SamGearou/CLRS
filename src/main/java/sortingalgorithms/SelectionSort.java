@@ -1,5 +1,6 @@
 package sortingalgorithms;
 
+//Selection sort is not a stable sort
 public class SelectionSort {
 
     public static void main(String[] args) {

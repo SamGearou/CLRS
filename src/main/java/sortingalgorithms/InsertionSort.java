@@ -1,5 +1,6 @@
 package sortingalgorithms;
 
+//Insertion Sort is a stable sort
 public class InsertionSort {
 
     public static void main(String[] args){

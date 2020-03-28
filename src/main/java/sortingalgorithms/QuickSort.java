@@ -1,7 +1,10 @@
 package sortingalgorithms;
 
+
 public class QuickSort {
 
+    //not a stable sort, because it swaps non-adjacent elements
+    //simple example: [2,2,1]
     public void quickSort(int[] arr, int p, int r) {
         if (p < r) {
             int q = partition(arr, p, r);
