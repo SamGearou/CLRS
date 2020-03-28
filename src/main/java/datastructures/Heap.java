@@ -9,6 +9,7 @@ public class Heap<T extends Comparable<T>> {
         count = 0;
     }
 
+    //This procedure runs in O(n) (with some math this can be proven)
     //buildHeap(T[] arr){
     //call minHeapifyUp(index, arr) that will take an extra parameter that is the array you want to heapify
     //}
