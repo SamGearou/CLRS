@@ -36,7 +36,7 @@ public class BucketSort {
 
     //bucket sorts integers
     public int[] bucketSort(int[] A) {
-        if(A.length == 0){
+        if (A.length == 0) {
             return new int[]{};
         }
         int bucketSize = (int) Math.sqrt(A.length);
