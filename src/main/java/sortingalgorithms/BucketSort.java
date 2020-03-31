@@ -9,6 +9,7 @@ import java.util.List;
 //distributes elements uniformly and independently over the interval [0,1)
 public class BucketSort {
 
+    //Best Case: O(n), Average: Case O(n), Worst Case: O(n^2)
     public double[] bucketSort(double[] A) {
         List<Double>[] B = new List[10];
         for (int i = 0; i < B.length; i++) {
