@@ -36,7 +36,7 @@ public class BucketSort {
 
     //bucket sorts integers
     public int[] bucketSort(int[] A) {
-        if (A.length == 0) {
+        if(A.length == 0){
             return new int[]{};
         }
         int bucketSize = (int) Math.sqrt(A.length);
@@ -61,7 +61,8 @@ public class BucketSort {
         return sortedList;
     }
 
+    //if maxVal is 0, it is fine as long as elem is also zero, since (int) 0/0f == 0
     public int hash(int elem, int bucketSize) {
         return (int) ((double) elem / maxVal * (bucketSize - 1));
-    }
+    }g
 }
