@@ -64,5 +64,5 @@ public class BucketSort {
     //if maxVal is 0, it is fine as long as elem is also zero, since (int) 0/0f == 0
     public int hash(int elem, int bucketSize) {
         return (int) ((double) elem / maxVal * (bucketSize - 1));
-    }g
+    }
 }
