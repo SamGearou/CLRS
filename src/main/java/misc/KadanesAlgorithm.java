@@ -58,18 +58,6 @@ public class KadanesAlgorithm {
             this.end = end;
         }
 
-        public int getSum() {
-            return sum;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
-
         @Override
         public String toString() {
             return "Triple{" +
