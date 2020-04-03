@@ -2,8 +2,7 @@ package orderstatistic;
 
 import sortingalgorithms.QuickSort;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 //The ith order statistic of a set of n elements is the ith smallest element. For
 //example, the minimum of a set of elements is the first order statistic (i = 1),
@@ -39,82 +38,49 @@ public class OrderStatistic {
     }
 
     //This algorithm determines the ith smallest of an input array of n > 1
-    //distinct elements
+    //distinct elements in O(n) worst-case time
     public int quickSelect(int[] A, int p, int r, int i) {
-        if (p >= r) {
-            return A[p];
+        int[] medians = new int[(int) (Math.ceil((r - p + 1) / 5f))];
+        int ind = 0;
+        int pivot;
+        for (int j = p; j <= r; j += 5) {
+            int median = findMedian(A, j, Math.min(j + 4, r));
+            medians[ind++] = median;
+        }
+        if (medians.length <= 5) {
+            pivot = findMedian(medians, 0, medians.length - 1);
         } else {
-            ArrayList<Pair> medians = new ArrayList<>();
-            for (int j = p; j <= r; j += 5) {
-                int median = findMedian(A, j, Math.min(j + 4, r));
-                medians.add(new Pair(A[median], median));
-            }
-            int pivot;
-            Collections.sort(medians);
-            if (medians.size() % 2 == 0) {
-                pivot = medians.get(medians.size() / 2 - 1).getIndex();
-            } else {
-                pivot = medians.get(medians.size() / 2).getIndex();
-            }
-            System.out.println(pivot + " " + A[pivot]);
-            quickSort.swap(A, pivot, r);
-            int q = quickSort.partition(A, p, r);
-            System.out.println("q: " + q);
-            int k = q - p + 2;
-            if (i == k) {
-                return A[q];
-            } else if (i < k) {
-                return quickSelect(A, p, q - 1, i);
-            } else {
-                return quickSelect(A, q - 1, r, i - k);
-            }
+            pivot = quickSelect(medians, 0, medians.length - 1, (int) (Math.ceil(medians.length / 2f) - 1));
+        }
+        int pivotInd = findPivotInd(A, pivot);
+        quickSort.swap(A, pivotInd, r);
+        int q = quickSort.partition(A, p, r);
+        int k = q - p + 1;
+        if (i == k) {
+            return A[q];
+        } else if (i < k) {
+            return quickSelect(A, p, q - 1, i);
+        } else {
+            return quickSelect(A, q + 1, r, i - k);
         }
     }
 
     public int findMedian(int[] arr, int p, int r) {
-        ArrayList<Pair> sortedList = new ArrayList<>();
-        for (int i = p; i <= r; i++) {
-            sortedList.add(new Pair(arr[i], i));
+        if (p == r) {
+            return arr[p];
         }
-        Collections.sort(sortedList);
-        if (sortedList.size() % 2 == 0) {
-            return sortedList.get(sortedList.size() / 2 - 1).getIndex();
-        } else {
-            return sortedList.get(sortedList.size() / 2).getIndex();
-        }
+        Arrays.sort(arr, p, r + 1);
+        return arr[(int) (Math.ceil((p + r) / 2f) - 1)];
     }
 
-    public class Pair implements Comparable<Pair> {
-        private int value;
-        private int index;
-
-        public Pair(int value, int index) {
-            this.value = value;
-            this.index = index;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        @Override
-        public int compareTo(Pair other) {
-            if (this.getValue() == other.getValue()) {
-                return this.getIndex() - other.getIndex();
-            } else {
-                return this.getValue() - other.getValue();
+    public int findPivotInd(int[] arr, int pivot) {
+        int ind = 0;
+        for (int x : arr) {
+            if (x == pivot) {
+                return ind;
             }
+            ind++;
         }
-    }
-
-    public static void main(String[] args) {
-        QuickSort qs = new QuickSort();
-        OrderStatistic os = new OrderStatistic(qs);
-        int[] arr = {4, 2, 3, 8, 9};
-        System.out.println(os.quickSelect(arr, 0, arr.length - 1, 1));
+        return -1;
     }
 }
