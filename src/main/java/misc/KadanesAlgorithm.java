@@ -23,4 +23,60 @@ public class KadanesAlgorithm {
         }
         return ans;
     }
+
+    public Triple maxSubArrayBounds(int[] nums) {
+        int ans = 0; //or negative infinity depending on if the empty array is allowed or not
+        int bestStart = 0;
+        int bestEnd = 0;
+        int currSum = 0;
+        int currStart = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (currSum <= 0) {
+                //start a new sequence at the current element
+                currStart = i;
+                currSum = nums[i];
+            } else {
+                currSum += nums[i];
+            }
+            if (currSum > ans) {
+                ans = currSum;
+                bestStart = currStart;
+                bestEnd = i + 1; //the +1 is to make 'bestEnd' exclusive
+            }
+        }
+        return new Triple(ans, bestStart, bestEnd);
+    }
+
+    public class Triple {
+        private int sum;
+        private int start;
+        private int end;
+
+        public Triple(int sum, int start, int end) {
+            this.sum = sum;
+            this.start = start;
+            this.end = end;
+        }
+
+        public int getSum() {
+            return sum;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
+        public int getEnd() {
+            return end;
+        }
+
+        @Override
+        public String toString() {
+            return "Triple{" +
+                    "sum=" + sum +
+                    ", start=" + start +
+                    ", end=" + end +
+                    '}';
+        }
+    }
 }
