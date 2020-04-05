@@ -4,7 +4,7 @@ public class Queue<T extends Object> {
     T[] queue;
     int start;
     int end;
-    int count = 0;
+    int count;
 
     public Queue(int size) {
         queue = (T[]) new Object[size];
