@@ -68,6 +68,18 @@ public class LinkedList<T> {
         return null;
     }
 
+    public LinkedListNode<T> getHead() {
+        return head;
+    }
+
+    public void setHead(LinkedListNode<T> newNode) {
+        head = newNode;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
     public T get(int pos) {
         if (pos < 0 || pos >= size) {
             return null;
@@ -80,13 +92,32 @@ public class LinkedList<T> {
         return curr.data;
     }
 
-    class LinkedListNode<T extends Object> {
+    public void setNext(LinkedListNode<T> newNode) {
+    }
+
+    public static class LinkedListNode<T extends Object> {
         private T data;
         private LinkedListNode<T> next;
 
         public LinkedListNode(T data) {
             this.data = data;
             next = null;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T newData) {
+            data = newData;
+        }
+
+        public LinkedListNode<T> getNext() {
+            return next;
+        }
+
+        public void setNext(LinkedListNode<T> newNode) {
+            next = newNode;
         }
     }
 }
