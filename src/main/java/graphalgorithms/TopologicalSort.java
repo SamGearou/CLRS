@@ -5,8 +5,8 @@ import datastructures.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static graphalgorithms.DFS.Node;
-import static graphalgorithms.DFS.Node.Color;
+import static graphalgorithms.Vertex.Color;
+
 
 //Alternative way to topological sort (the way not shown in this class) would be to
 //run dfs on each vertex with incoming edges equal to zero
@@ -15,31 +15,31 @@ public class TopologicalSort {
 
     //using two colors, WHITE = not visited, BLACK = visited
     //Baic idea: add vertex (node) to front of linkedList when it becomes 'finished'
-    public LinkedList<Node> topologicalSort(Map<Node, List<Node>> graph) {
+    public LinkedList<Vertex> topologicalSort(Map<Vertex, List<Vertex>> graph) {
         time = 0;
-        LinkedList<Node> root = new LinkedList<>();
-        for (Node node : graph.keySet()) {
-            if (node.getColor() != Color.BLACK) {
-                dfsVisit(graph, node, root);
+        LinkedList<Vertex> root = new LinkedList<>();
+        for (Vertex vertex : graph.keySet()) {
+            if (vertex.getColor() != Color.BLACK) {
+                dfsVisit(graph, vertex, root);
             }
         }
         return root;
     }
 
-    private void dfsVisit(Map<Node, List<Node>> graph, Node node, LinkedList<Node> root) {
+    private void dfsVisit(Map<Vertex, List<Vertex>> graph, Vertex vertex, LinkedList<Vertex> root) {
         time++;
-        node.setDiscoverTime(time);
-        node.setColor(Color.BLACK);
-        List<Node> neighbors = graph.get(node);
+        vertex.setDiscoverTime(time);
+        vertex.setColor(Color.BLACK);
+        List<Vertex> neighbors = graph.get(vertex);
         if (neighbors != null) {
-            for (Node neighbor : neighbors) {
+            for (Vertex neighbor : neighbors) {
                 if (neighbor.getColor() != Color.BLACK) {
                     dfsVisit(graph, neighbor, root);
                 }
             }
         }
         time++;
-        node.setFinishTime(time);
-        root.add(node, 0);
+        vertex.setFinishTime(time);
+        root.add(vertex, 0);
     }
 }

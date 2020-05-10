@@ -9,91 +9,31 @@ public class DFS {
     //recursive DFS with discovery and finish times
     //colors are used if you wanted to create a dfs-forest (a set of disjoint dfs-trees), the colors ensure
     //that a node only belongs to one dfs-tree (hence, the collection of dfs-trees are disjoint)
-    public Map<Node, List<Node>> dfs(Map<Node, List<Node>> graph) {
+    public Map<Vertex, List<Vertex>> dfs(Map<Vertex, List<Vertex>> graph) {
         time = 0;
-        for (Node node : graph.keySet()) {
-            if (node.color == Node.Color.WHITE) {
-                dfsVisit(graph, node);
+        for (Vertex vertex : graph.keySet()) {
+            if (vertex.getColor() == Vertex.Color.WHITE) {
+                dfsVisit(graph, vertex);
             }
         }
         return graph;
     }
 
-    private void dfsVisit(Map<Node, List<Node>> graph, Node node) {
+    private void dfsVisit(Map<Vertex, List<Vertex>> graph, Vertex vertex) {
         time++;
-        node.discoverTime = time;
-        node.color = Node.Color.GREY;
-        List<Node> neighbors = graph.get(node);
+        vertex.setDiscoverTime(time);
+        vertex.setColor(Vertex.Color.GREY);
+        List<Vertex> neighbors = graph.get(vertex);
         if (neighbors != null) {
-            for (Node neighbor : neighbors) {
-                if (neighbor.color == Node.Color.WHITE) {
-                    neighbor.parent = node;
+            for (Vertex neighbor : neighbors) {
+                if (neighbor.getColor() == Vertex.Color.WHITE) {
+                    neighbor.setParent(vertex);
                     dfsVisit(graph, neighbor);
                 }
             }
         }
-        node.color = Node.Color.BLACK;
+        vertex.setColor(Vertex.Color.BLACK);
         time++;
-        node.finishTime = time;
-    }
-
-    public static class Node {
-        private int v;
-        private Node parent;
-        private int discoverTime;
-        private int finishTime;
-        private Color color;
-
-        public enum Color {
-            WHITE, GREY, BLACK;
-        }
-
-        public Node(int v) {
-            this.v = v;
-            parent = null;
-            discoverTime = -1;
-            finishTime = -1;
-            color = Color.WHITE;
-        }
-
-        public int getV() {
-            return v;
-        }
-
-        public void setV(int v) {
-            this.v = v;
-        }
-
-        public Node getParent() {
-            return parent;
-        }
-
-        public void setParent(Node parent) {
-            this.parent = parent;
-        }
-
-        public int getDiscoverTime() {
-            return discoverTime;
-        }
-
-        public void setDiscoverTime(int discoverTime) {
-            this.discoverTime = discoverTime;
-        }
-
-        public int getFinishTime() {
-            return finishTime;
-        }
-
-        public void setFinishTime(int finishTime) {
-            this.finishTime = finishTime;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-
-        public void setColor(Color color) {
-            this.color = color;
-        }
+        vertex.setFinishTime(time);
     }
 }
