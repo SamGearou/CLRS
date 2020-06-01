@@ -65,4 +65,8 @@ public class Graph<T extends Comparable> {
     public Set<Edge<T>> getEdges() {
         return edges;
     }
+
+    public Set<Edge<T>> getNeighbors(Vertex<T> vertex) {
+        return graph.get(vertex);
+    }
 }

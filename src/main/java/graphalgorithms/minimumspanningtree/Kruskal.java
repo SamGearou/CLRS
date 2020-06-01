@@ -16,6 +16,8 @@ public class Kruskal {
         disjointSet = new HashMap<>();
     }
 
+    //O(ElogV)
+    //O(E + VlogV) with Fibonacci Heap if |V| is much smaller than |E|
     public List<Edge<String>> findMST(Graph<String> graph) {
         List<Edge<String>> mst = new ArrayList<>();
         Set<Vertex<String>> vertices = graph.getVertices();
