@@ -12,7 +12,7 @@ public class Prim {
     //If you wanted to return list of edges, keep track of min edge added in the for-loop
     //O(ElogV)
     //O(E + VlogV) using a Fibonacci Heap
-    public Set<Edge<String>> findMST(Graph<String> graph, Vertex<String> src) {
+    public void findMST(Graph<String> graph, Vertex<String> src) {
         Set<Vertex<String>> vertices = graph.getVertices();
         Heap<Vertex<String>> pq = new Heap<>(vertices.size(), Comparator.comparingInt(Vertex::getDist));
         HashSet<Edge<String>> mst = new HashSet<>();
@@ -25,7 +25,6 @@ public class Prim {
             System.out.println(curr);
             curr.setVisited(true);
             Set<Edge<String>> neighbors = graph.getNeighbors(curr);
-            Edge<String> minEdge = null;
             if (neighbors != null) {
                 for (Edge<String> edge : neighbors) {
                     Vertex<String> dest = edge.getDest();
@@ -34,17 +33,10 @@ public class Prim {
                         dest.setDist(weight);
                         dest.setParent(curr);
                         pq.decreaseKey(pq.getPos(dest), dest);
-                        if (minEdge == null || edge.getW() < minEdge.getW()) {
-                            minEdge = edge;
-                        }
                     }
-                }
-                if (minEdge != null) {
-                    mst.add(minEdge);
                 }
             }
         }
-        return mst;
     }
 
     public static void main(String[] args) {
@@ -81,9 +73,5 @@ public class Prim {
         graph.addUndirectedEdge(d, f, 14);
         graph.addUndirectedEdge(d, e, 9);
         graph.addUndirectedEdge(f, e, 10);
-        Set<Edge<String>> mst = new Prim().findMST(graph, a);
-        for (Edge<String> edge : mst) {
-            System.out.println(edge.getSrc() + " " + edge.getDest() + " " + edge.getW());
-        }
     }
 }
