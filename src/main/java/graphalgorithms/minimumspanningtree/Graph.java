@@ -21,6 +21,8 @@ public class Graph<T extends Comparable> {
         Edge<T> edge = new Edge(src, dest, weight);
         neighbors.add(edge);
         graph.put(src, neighbors);
+        vertices.add(src);
+        vertices.add(dest);
         edges.add(edge);
     }
 
