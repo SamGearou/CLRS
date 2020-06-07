@@ -22,7 +22,6 @@ public class Prim {
         }
         while (!pq.isEmpty()) {
             Vertex<String> curr = pq.removeMin();
-            System.out.println(curr);
             curr.setVisited(true);
             Set<Edge<String>> neighbors = graph.getNeighbors(curr);
             if (neighbors != null) {
@@ -73,5 +72,15 @@ public class Prim {
         graph.addUndirectedEdge(d, f, 14);
         graph.addUndirectedEdge(d, e, 9);
         graph.addUndirectedEdge(f, e, 10);
+        new Prim().findMST(graph, a);
+        System.out.println(a.getParent());
+        System.out.println(b.getParent());
+        System.out.println(c.getParent());
+        System.out.println(d.getParent());
+        System.out.println(e.getParent());
+        System.out.println(f.getParent());
+        System.out.println(g.getParent());
+        System.out.println(h.getParent());
+        System.out.println(i.getParent());
     }
 }
