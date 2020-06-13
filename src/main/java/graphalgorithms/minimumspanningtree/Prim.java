@@ -1,6 +1,9 @@
 package graphalgorithms.minimumspanningtree;
 
 import datastructures.Heap;
+import graphalgorithms.graph.Edge;
+import graphalgorithms.graph.Graph;
+import graphalgorithms.graph.Vertex;
 
 import java.util.Comparator;
 import java.util.HashSet;

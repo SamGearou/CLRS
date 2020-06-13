@@ -1,4 +1,4 @@
-package graphalgorithms.minimumspanningtree;
+package graphalgorithms.graph;
 
 import java.util.UUID;
 

@@ -1,9 +1,9 @@
-package graphalgorithms;
+package graphalgorithms.shortestpaths;
 
 import datastructures.Heap;
-import graphalgorithms.minimumspanningtree.Edge;
-import graphalgorithms.minimumspanningtree.Graph;
-import graphalgorithms.minimumspanningtree.Vertex;
+import graphalgorithms.graph.Edge;
+import graphalgorithms.graph.Graph;
+import graphalgorithms.graph.Vertex;
 
 import java.util.Comparator;
 import java.util.Set;

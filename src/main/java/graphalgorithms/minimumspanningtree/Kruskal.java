@@ -1,6 +1,9 @@
 package graphalgorithms.minimumspanningtree;
 
 import datastructures.disjointsets.TreeNode;
+import graphalgorithms.graph.Edge;
+import graphalgorithms.graph.Graph;
+import graphalgorithms.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.Collections;
