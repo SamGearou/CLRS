@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Dijkstra {
 
-    //Running time: O(V+E)lgV, which is O(ElgV) if all vertices are reachable from the source
+    //Running time: O(V+E)lgV, which is O(ElgV) since V is O(E) assuming a connected graph (all vertices can be reached from source vertex)
     //O(VlgV + E) running time with Fibonacci Heap implementation of min-priority queue
     public void shortestPath(Graph<String> graph, Vertex<String> src) {
         src.setDist(0);
