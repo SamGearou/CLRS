@@ -72,6 +72,10 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
     public String toString() {
         return "Vertex{" +
                 "data=" + data +
+                ", key=" + key +
+                ", dist=" + dist +
+                ", parent=" + parent +
+                ", visited=" + visited +
                 '}';
     }
 
