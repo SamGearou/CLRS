@@ -5,7 +5,7 @@ import graphalgorithms.graph.AdjacencyMatrix;
 //calculates all pairs shortest paths
 public class FloydWarshall {
 
-    //Running time: O(V^3)
+    //Runtime: O(V^3)
     public int[][] allPairsShortestPath(AdjacencyMatrix graph) {
         int numVertices = graph.getNumVertices();
         int[][] allPairs = graph.getGraph();

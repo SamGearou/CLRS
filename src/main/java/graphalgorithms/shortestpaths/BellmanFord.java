@@ -6,7 +6,7 @@ import graphalgorithms.graph.Vertex;
 
 public class BellmanFord {
 
-    //Running time: O(V * E)
+    //Runtime: O(V * E)
     //Can detect negative edge-weight cycles reachable from src
     //Returns true when src cannot reach a negative edge-weight cycle, false otherwise
     public boolean shortestPath(Graph<String> graph, Vertex<String> src) {
