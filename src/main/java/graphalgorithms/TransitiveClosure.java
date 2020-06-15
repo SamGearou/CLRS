@@ -7,7 +7,7 @@ import graphalgorithms.graph.AdjacencyMatrix;
 //otherwise closure[i][j] = 0
 public class TransitiveClosure {
 
-    //Runtime: O(V^3), same (and basically the same algorithm as) Floyd-Warshall
+    //Runtime: O(V^3), same (basically the same algorithm as) Floyd-Warshall
     public int[][] transitiveClosure(AdjacencyMatrix graph) {
         int[][] closure = graph.getGraph();
         for (int k = 0; k < closure.length; k++) {

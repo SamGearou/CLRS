@@ -4,18 +4,18 @@ import graphalgorithms.graph.Edge;
 import graphalgorithms.graph.Graph;
 import graphalgorithms.graph.Vertex;
 
-public class BellmanFord {
+public class BellmanFord<T extends Comparable> {
 
     //Runtime: O(V * E)
     //Can detect negative edge-weight cycles reachable from src
     //Returns true when src cannot reach a negative edge-weight cycle, false otherwise
-    public boolean shortestPath(Graph<String> graph, Vertex<String> src) {
+    public boolean shortestPath(Graph<T> graph, Vertex<T> src) {
         src.setDist(0);
         int numVertices = graph.getVertices().size();
         for (int i = 0; i < numVertices - 1; i++) {
-            for (Edge<String> edge : graph.getEdges()) {
-                Vertex<String> s = edge.getSrc();
-                Vertex<String> e = edge.getDest();
+            for (Edge<T> edge : graph.getEdges()) {
+                Vertex<T> s = edge.getSrc();
+                Vertex<T> e = edge.getDest();
                 int w = edge.getW();
                 if (e.getDist() > (long) s.getDist() + w) {
                     e.setDist(s.getDist() + w);
@@ -23,9 +23,9 @@ public class BellmanFord {
                 }
             }
         }
-        for (Edge<String> edge : graph.getEdges()) {
-            Vertex<String> s = edge.getSrc();
-            Vertex<String> e = edge.getDest();
+        for (Edge<T> edge : graph.getEdges()) {
+            Vertex<T> s = edge.getSrc();
+            Vertex<T> e = edge.getDest();
             int w = edge.getW();
             if (e.getDist() > (long) s.getDist() + w) {
                 return false;
