@@ -16,19 +16,21 @@ public class SetList<E> {
 
     /**
      * Creates a set with one element
+     * Runtime: O(1)
      *
      * @param val the value contained in the Node
-     * @return Node<E>
      */
-    public Node<E> makeSet(E val) {
+    public void makeSet(E val) {
         Node<E> node = new Node<>(val);
         this.head = node;
         this.tail = node;
         node.set = this;
-        return node;
     }
 
     /**
+     * Finds the representative element for the given Node
+     * Runtime: O(1)
+     *
      * @param node Node<E>
      * @return Node<E>
      * @pre Node is non-null
@@ -41,6 +43,9 @@ public class SetList<E> {
     }
 
     /**
+     * Combines two disjoint sets
+     * Runtime: O(n), where n is the length of the set y
+     *
      * @param x Node<E>
      * @param y Node<E>
      * @return SetList<E>, the representative of disjoint set x.set
@@ -65,6 +70,7 @@ public class SetList<E> {
 
     /**
      * The representative (and first element) Node of the disjoint set
+     * Runtime: O(1)
      *
      * @return Node<E>
      */
@@ -74,6 +80,7 @@ public class SetList<E> {
 
     /**
      * The last element in the disjoint set
+     * Runtime: O(1)
      *
      * @return Node<E>
      */

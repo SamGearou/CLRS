@@ -2,11 +2,12 @@ package datastructures.disjointsets;
 
 //Leetcode 721 (Accounts Merge) - re-implement with union-find with path compression
 //Leetcode 684 (Redundant Connection) - re-implement with union-find with path compression
+
 /**
- *  Alone, union by rank yields a running time of O(mlogn) for a sequence of m operations and n makeSet operations (m <= n)
+ * Alone, union by rank yields a running time of O(mlogn) for a sequence of m operations and n makeSet operations (m <= n)
  * When we use both union by rank and path compression, the worst-case running
  * time is O(m * a(n)), where a(n) is a very slowly growing function
- *
+ * <p>
  * In any conceivable application of a disjoint-set data structure,
  * a(n) <= 4; thus, we can view the running time as linear in m in all practical situations.
  * Strictly speaking, however, it is superlinear.
@@ -17,24 +18,25 @@ public class TreeNode<T extends Comparable> {
     private int rank; //upper bound on the height of the TreeNode
 
     public TreeNode(T data) {
-        this.data = data;
-        makeSet(this);
+        makeSet(data);
     }
 
     /**
-     * Creates a set with one element, x
+     * Creates a set with one element
      * The amortized cost of each makeSet operation is O(1)
-     * @param node Element to add to empty set
+     *
+     * @param data the data contained in the TreeNode
      * @return node
      */
-    public void makeSet(TreeNode<T> node) {
-        node.parent = node;
-        node.rank = 0;
+    public void makeSet(T data) {
+        this.data = data;
+        this.parent = this;
+        this.rank = 0;
     }
 
     /**
      * @param node finds the representative element of the set that x belongs to (if it exists)
-     * The amortized cost of each findSet operation is O(a(n))
+     *             The amortized cost of each findSet operation is O(a(n))
      * @return representative element
      */
     public TreeNode<T> findSet(TreeNode<T> node) {
@@ -48,6 +50,7 @@ public class TreeNode<T extends Comparable> {
     /**
      * Combines two disjoint sets into one (note this method assumes the sets are disjoint)
      * The amortized cost of each union operation is O(a(n))
+     *
      * @param x first set
      * @param y second set
      * @return new set
@@ -59,6 +62,7 @@ public class TreeNode<T extends Comparable> {
     /**
      * Helper method for #union to combine two disjoint sets
      * The amortized cost of each link operation is O(a(n))
+     *
      * @param x first set
      * @param y second set
      * @return root of new set
@@ -74,5 +78,32 @@ public class TreeNode<T extends Comparable> {
             x.parent = y;
             return y;
         }
+    }
+
+    /**
+     * Get the data of the element in a set
+     *
+     * @return T
+     */
+    public T getData() {
+        return data;
+    }
+
+    /**
+     * Get the representative of an element in the set
+     *
+     * @return TreeNode<T>
+     */
+    public TreeNode<T> getParent() {
+        return parent;
+    }
+
+    /**
+     * Get the rank of an element in the set
+     *
+     * @return int, the rank
+     */
+    public int getRank() {
+        return rank;
     }
 }
