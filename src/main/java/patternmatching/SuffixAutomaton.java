@@ -49,6 +49,7 @@ public class SuffixAutomaton {
             extend(str.charAt(i));
         }
         int p = last;
+        //mark terminal states
         while (p > 0) {
             System.out.println("p: " + p);
             states[p].isTerminal = true;
