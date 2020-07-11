@@ -145,16 +145,16 @@ public class SuffixArray {
     /**
      * Returns the longest repeating substring of string S
      *
-     * @param S
-     * @return
+     * @param s String
+     * @return longest repeating substring
      */
-    public String longestRepeatingSubstring(String S) {
-        String str = S + "$";
+    public String longestRepeatingSubstring(String s) {
+        String str = s + "$";
         int maxLen = 0;
         int maxInd = -1;
         SuffixArray sA = new SuffixArray();
         int[] suffixes = sA.sortCyclicShifts(str);
-        int[] lcp = sA.longestCommonPrefix(S, suffixes);
+        int[] lcp = sA.longestCommonPrefix(s, suffixes);
         for (int i = 0; i < lcp.length; i++) {
             if (lcp[i] > maxLen) {
                 maxLen = lcp[i];
@@ -165,7 +165,7 @@ public class SuffixArray {
         if (maxInd != -1) {
             int start = suffixes[maxInd];
             while (maxLen > 0) {
-                sb.append(S.charAt(start++));
+                sb.append(s.charAt(start++));
                 maxLen--;
             }
         }
