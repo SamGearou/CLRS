@@ -1,26 +1,36 @@
 package datastructures;
 
-//A suffix array will contain integers that represent the starting
-// indexes of the all the suffixes of a given string, after the aforementioned suffixes are sorted.
-//Example: for s = "abaab" suffix array = [2, 3, 0, 4, 1]
-//corresponding to the (sorted) suffixes aab, ab, abaab, b, baab
+import java.util.Arrays;
+
+/**
+ * A suffix array will contain integers that represent the starting
+ * indexes of all the suffixes of a given string, after the aforementioned suffixes are sorted.
+ * Example: for s = "abaab" suffix array = [2, 3, 0, 4, 1]
+ * corresponding to the (sorted) suffixes aab, ab, abaab, b, baab
+ */
 public class SuffixArray {
     private final int alaphabetLen = 256;
 
-    //Runtime: O(nlogn), where n is the length of String str
-    //Space Complexity: O(n), where n is the length of String str
-    //Taking into account the size of the alphabet (i.e., not a constant alphabet size) yields a running time
-    //of O((n + k)logn) time and O(n + k) space
+    /**
+     * Runtime: O(nlogn), where n is the length of string str
+     * Space: O(n), where n is the length of string str
+     * Runtime taking into account size of alphabet (i.e., not a constant alpahbet size): O((n+k)logn)
+     * where k is the size of the alphabet
+     * Space taking into account size of alphabet: O(n+k)
+     *
+     * @param str String
+     * @return suffix array
+     */
     public int[] sortCyclicShifts(String str) {
         int n = str.length();
-        int[] p = new int[n];
-        int[] c = new int[n];
+        int[] p = new int[n]; //stores cyclic strings alphabetically
+        int[] c = new int[n]; //stores equivalence class of cyclic strings
         int[] cnt = new int[Math.max(alaphabetLen, n)];
-        //sort first character of the string using counting sort
+        //sort cyclic substrings of length 1 using counting sort
         for (int i = 0; i < n; i++) {
             cnt[str.charAt(i)]++;
         }
-        for (int i = 1; i < cnt.length; i++) {
+        for (int i = 1; i < alaphabetLen; i++) {
             cnt[i] += cnt[i - 1];
         }
         for (int i = 0; i < n; i++) {
@@ -75,24 +85,90 @@ public class SuffixArray {
                 cn[p[i]] = classes - 1;
             }
             //swap contents of cn and c arrays
-            swap(cn, c);
+            swap(c, cn);
         }
-        return p;
+        //remove 1st suffix, as this is the suffix that starts with "$" (or whatever char is used)
+        return Arrays.copyOfRange(p, 1, p.length);
     }
 
-    public void swap(int[] a, int b[]) {
-        for (int i = 0; i < a.length; i++) {
-            int temp = a[i];
-            a[i] = b[i];
-            b[i] = temp;
+    /**
+     * Swaps the contents of two arrays
+     *
+     * @param one first array
+     * @param two second array
+     */
+    public void swap(int[] one, int[] two) {
+        for (int i = 0; i < one.length; i++) {
+            int temp = one[i];
+            one[i] = two[i];
+            two[i] = temp;
         }
     }
 
-    public static void main(String[] args) {
-        int[] suffixArray = new SuffixArray().sortCyclicShifts("dabbb$");
-        for (int x : suffixArray) {
-            //ignore first index, as this cyclic shift starts with '$'
-            System.out.println(x);
+    /**
+     * Return the Longest Common Prefix Array given a suffix array
+     * Algorithm Name: Kasai's algorithm
+     * Runtime: O(n)
+     * Space: O(n)
+     *
+     * @param str       the original String
+     * @param suffixArr Suffix Array
+     * @return longest common prefix array
+     * @ore length of string str is greater than 0
+     */
+    public int[] longestCommonPrefix(String str, int[] suffixArr) {
+        int n = str.length();
+        int[] rank = new int[n];
+        //sorts suffixes by length (descending)
+        for (int i = 0; i < n; i++) {
+            rank[suffixArr[i]] = i;
         }
+        int k = 0;
+
+        //lcp[i] = lcp of substring starting at suffixArr[i] and suffixArr[i+1]
+        int[] lcp = new int[n - 1];
+        for (int i = 0; i < n; i++) {
+            if (rank[i] == n - 1) {
+                k = 0;
+                continue;
+            }
+            int j = suffixArr[rank[i] + 1];
+            while (i + k < n && j + k < n && str.charAt(i + k) == str.charAt(j + k)) {
+                k++;
+            }
+            lcp[rank[i]] = k;
+            k = Math.max(0, k - 1);
+        }
+        return lcp;
+    }
+
+    /**
+     * Returns the longest repeating substring of string S
+     *
+     * @param S
+     * @return
+     */
+    public String longestRepeatingSubstring(String S) {
+        String str = S + "$";
+        int maxLen = 0;
+        int maxInd = -1;
+        SuffixArray sA = new SuffixArray();
+        int[] suffixes = sA.sortCyclicShifts(str);
+        int[] lcp = sA.longestCommonPrefix(S, suffixes);
+        for (int i = 0; i < lcp.length; i++) {
+            if (lcp[i] > maxLen) {
+                maxLen = lcp[i];
+                maxInd = i;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        if (maxInd != -1) {
+            int start = suffixes[maxInd];
+            while (maxLen > 0) {
+                sb.append(S.charAt(start++));
+                maxLen--;
+            }
+        }
+        return sb.toString();
     }
 }
