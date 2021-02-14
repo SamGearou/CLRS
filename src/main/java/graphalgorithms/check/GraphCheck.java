@@ -8,10 +8,12 @@ import java.util.Map;
 public class GraphCheck {
     private Map<String, List<String>> graph;
     private Map<String, String> parent;
+    private Map<String, Integer> states;
 
     public GraphCheck() {
         graph = new HashMap<>();
         parent = new HashMap<>();
+        states = new HashMap<>(); //null = UNVISITED, 0 = EXPLORED, 1 = VISITED
     }
 
     public void addVertex(String vertex) {
@@ -27,6 +29,10 @@ public class GraphCheck {
         return graph;
     }
 
+    public Map<String, Integer> getStates() {
+        return states;
+    }
+
     /**
      * Categorizes vertex states of a graph into three categories:
      * 1) EXPLORED - vertex that has been visited but not yet complete
@@ -39,12 +45,11 @@ public class GraphCheck {
      * 3) Forward/Cross Edge: edges from vertex with state EXPLORED to vertex with state VISITED
      */
     public void graphCheck(String src) {
-        HashMap<String, Integer> states = new HashMap<>(); //null = UNVISITED, 0 = EXPLORED, 1 = VISITED
+        states.put(src, 0);
         for (int i = 0; i < graph.get(src).size(); i++) {
             String neighbor = graph.get(src).get(i);
             if (!states.containsKey(neighbor)) { //EXPLORED --> UNVISITED
                 parent.put(neighbor, src);
-                states.put(neighbor, 0);
                 graphCheck(neighbor);
             } else if (states.get(neighbor) == 0) { //EXPLORED --> EXPLORED, cycle!
                 //check to make sure cycle has length 3 or more
@@ -71,14 +76,22 @@ public class GraphCheck {
         graphCheck.addVertex("3");
         graphCheck.addVertex("4");
         graphCheck.addVertex("5");
+        graphCheck.addVertex("6");
+        graphCheck.addVertex("7");
+        graphCheck.addVertex("8");
         graphCheck.addUndirectedEdge("0", "1");
         graphCheck.addUndirectedEdge("1", "2");
         graphCheck.addUndirectedEdge("1", "3");
-        graphCheck.addUndirectedEdge("1", "4");
-        graphCheck.addUndirectedEdge("1", "5");
-        graphCheck.addUndirectedEdge("4", "5");
-        graphCheck.addUndirectedEdge("4", "4");
-
-        graphCheck.graphCheck("0");
+        graphCheck.addUndirectedEdge("2", "3");
+        graphCheck.addUndirectedEdge("3", "4");
+        graphCheck.addUndirectedEdge("7", "6");
+        graphCheck.addUndirectedEdge("6", "8");
+        int component = 0;
+        for (String vertex : graphCheck.getGraph().keySet()) {
+            if (!graphCheck.getStates().containsKey(vertex)) {
+                System.out.println(String.format("Component %s", component++));
+                graphCheck.graphCheck(vertex);
+            }
+        }
     }
 }
