@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 
+//UVA 10911 - Forming Quiz Teams
 public class UVA10911 {
     private double[][] dist = new double[16][16];
     private int numTeams;

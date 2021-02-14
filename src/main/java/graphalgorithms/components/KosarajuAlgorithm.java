@@ -1,4 +1,6 @@
-package graphalgorithms;
+package graphalgorithms.components;
+
+import graphalgorithms.Vertex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,8 @@ import java.util.Stack;
 
 import static graphalgorithms.Vertex.Color;
 
-public class StronglyConnectedComponents {
+//Kosaraju's algorithm
+public class KosarajuAlgorithm {
 
     //run dfs on graph G, pushing vertices onto stack when they are 'finished'
     //Then run dfs on transpose of G, pushing vertices from stack in decreasing finish time
@@ -92,6 +95,6 @@ public class StronglyConnectedComponents {
         graph.put(six, List.of(five, seven));
         graph.put(seven, List.of());
         graph.put(eight, List.of(seven));
-        new StronglyConnectedComponents().stronglyConnectedComponents(graph);
+        new KosarajuAlgorithm().stronglyConnectedComponents(graph);
     }
 }

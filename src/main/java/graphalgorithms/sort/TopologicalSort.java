@@ -1,6 +1,7 @@
-package graphalgorithms;
+package graphalgorithms.sort;
 
 import datastructures.LinkedList;
+import graphalgorithms.Vertex;
 
 import java.util.List;
 import java.util.Map;

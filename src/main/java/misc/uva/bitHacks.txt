@@ -1,0 +1,19 @@
+For the following examples, let S = 34 (100010)
+
+To turn on the j-th bit:
+S |= (1 << j)
+
+To check is j-th bit is set (i.e., is a 1):
+S &= (1 << j)
+
+To clear/turn off the j-th bit:
+S &= ~(1 << j)
+
+To toggle (flip the status) of the j-th bit:
+S ^= (1 << j)
+
+To get the value of the least significant bit that is on (from the right):
+T = S & (-S)
+
+To turn on all bits in a set of size n:
+S = (1 << n) -1

@@ -1,4 +1,6 @@
-package graphalgorithms;
+package graphalgorithms.search;
+
+import graphalgorithms.Vertex;
 
 import java.util.List;
 import java.util.Map;

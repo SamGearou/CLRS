@@ -1,4 +1,4 @@
-package graphalgorithms;
+package graphalgorithms.closure;
 
 import graphalgorithms.graph.AdjacencyMatrix;
 
