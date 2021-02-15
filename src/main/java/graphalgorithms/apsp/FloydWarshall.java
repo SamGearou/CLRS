@@ -1,4 +1,4 @@
-package graphalgorithms.shortestpaths;
+package graphalgorithms.apsp;
 
 import graphalgorithms.graph.AdjacencyMatrix;
 

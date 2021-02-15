@@ -1,4 +1,4 @@
-package graphalgorithms.shortestpaths;
+package graphalgorithms.sssp;
 
 import datastructures.Heap;
 import graphalgorithms.graph.Edge;

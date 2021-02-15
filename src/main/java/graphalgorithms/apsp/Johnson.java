@@ -1,8 +1,10 @@
-package graphalgorithms.shortestpaths;
+package graphalgorithms.apsp;
 
 import graphalgorithms.graph.Edge;
 import graphalgorithms.graph.Graph;
 import graphalgorithms.graph.Vertex;
+import graphalgorithms.sssp.Dijkstra;
+import graphalgorithms.sssp.BellmanFord;
 
 import java.util.HashMap;
 import java.util.Set;
