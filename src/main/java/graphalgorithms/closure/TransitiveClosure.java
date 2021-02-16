@@ -1,13 +1,10 @@
 package graphalgorithms.closure;
 
-import graphalgorithms.graph.AdjacencyMatrix;
-
 //transitive closure: determines for all pairs of vertices i and j if there exists
 //a path from i to j. If there exists a path from i to j, closure[i][j] = 1,
 //otherwise closure[i][j] = 0
 public class TransitiveClosure {
 
-    //Runtime: O(V^3), same (basically the same algorithm as) Floyd-Warshall
     public int[][] transitiveClosure(AdjacencyMatrix graph) {
         int[][] closure = graph.getGraph();
         for (int k = 0; k < closure.length; k++) {
@@ -18,6 +15,27 @@ public class TransitiveClosure {
             }
         }
         return closure;
+    }
+
+    public static class AdjacencyMatrix {
+        private int[][] graph;
+
+        public AdjacencyMatrix(int numVertices) {
+            graph = new int[numVertices][numVertices];
+            for (int i = 0; i < graph.length; i++) {
+                for (int j = 0; j < graph[i].length; j++) {
+                    graph[i][j] = i == j ? 0 : Integer.MAX_VALUE;
+                }
+            }
+        }
+
+        public void addEdge(int src, int dest, int weight) {
+            graph[src][dest] = weight;
+        }
+
+        public int[][] getGraph() {
+            return graph;
+        }
     }
 
     public static void main(String[] args) {
