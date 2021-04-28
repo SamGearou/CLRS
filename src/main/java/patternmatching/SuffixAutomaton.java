@@ -51,7 +51,6 @@ public class SuffixAutomaton {
         int p = last;
         //mark terminal states
         while (p > 0) {
-            System.out.println("p: " + p);
             states[p].isTerminal = true;
             p = states[p].link;
         }
@@ -78,7 +77,7 @@ public class SuffixAutomaton {
                 int clone = size++;
                 states[clone] = new State(0, -1);
                 states[clone].len = states[p].len + 1;
-                states[clone].neighbors = states[q].neighbors;
+                states[clone].neighbors = new HashMap<>(states[q].neighbors);
                 states[clone].link = states[q].link;
                 while (p != -1 && states[p].neighbors.get(c) == q) {
                     states[p].neighbors.put(c, clone);
@@ -147,11 +146,31 @@ public class SuffixAutomaton {
         }
     }
 
+    /**
+     * Find the last (lexicographically) suffix of a String
+     */
+    public String findLastSubString(SuffixAutomaton SA) {
+        StringBuilder sb = new StringBuilder();
+        int currState = 0;
+        while (currState < SA.last) {
+            Map<Character, Integer> neighbors = SA.states[currState].neighbors;
+            char maxChar = 'A';
+            for (char neighbor : neighbors.keySet()) {
+                if (neighbor > maxChar) {
+                    maxChar = neighbor;
+                }
+            }
+            currState = SA.states[currState].neighbors.get(maxChar);
+            sb.append(maxChar);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        SuffixAutomaton automaton = new SuffixAutomaton(5);
-        automaton.buildAutomaton("abcbc");
-        for (State state : automaton.getStates()) {
-            System.out.println(state);
+        SuffixAutomaton automaton = new SuffixAutomaton("jhhhhhhhhhhjjjjjjjjjjjddddddddjdjdjdjdjddjjdjdjdjdjfjfjfjfjtrttyyyyyyyyyyyhyyyyyy".length());
+        automaton.buildAutomaton("jhhhhhhhhhhjjjjjjjjjjjddddddddjdjdjdjdjddjjdjdjdjdjfjfjfjfjtrttyyyyyyyyyyyhyyyyyy");
+        for (char key : automaton.states[0].neighbors.keySet()) {
+            System.out.println(key);
         }
     }
 }
