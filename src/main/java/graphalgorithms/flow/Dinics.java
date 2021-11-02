@@ -1,6 +1,7 @@
 package graphalgorithms.flow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -15,6 +16,9 @@ public class Dinics {
     private int s;
     private int t;
     private ArrayList<Integer> level;
+    private int[] ptr; //To keep track of next edge to be explored. ptr[i] stores
+    // count of edges explored from i. This effectively prunes dead ends
+    //such that dead ends are only ever encountered once.
     private Queue<Integer> q;
 
     public Dinics(int V, int s, int t) {
@@ -25,6 +29,7 @@ public class Dinics {
         edges = new ArrayList<>();
         adj = new ArrayList<>();
         level = new ArrayList<>();
+        ptr = new int[V];
         q = new LinkedList<>();
         for (int i = 0; i < V; i++) {
             adj.add(new ArrayList<>());
@@ -34,7 +39,7 @@ public class Dinics {
 
     public void addEdge(int src, int dest, int capacity) {
         edges.add(new Edge(src, dest, capacity));
-        edges.add(new Edge(dest, src, capacity));
+        edges.add(new Edge(dest, src, 0));
         adj.get(src).add(E);
         adj.get(dest).add(E + 1);
         E += 2;
@@ -64,8 +69,8 @@ public class Dinics {
         if (v == t) {
             return pushed;
         }
-        for (int i = 0; i < adj.get(v).size(); i++) {
-            int id = adj.get(v).get(i);
+        for (; ptr[v] < adj.get(v).size(); ++ptr[v]) {
+            int id = adj.get(v).get(ptr[v]);
             int dest = edges.get(id).dest;
             if (level.get(v) + 1 != level.get(dest) || edges.get(id).capacity - edges.get(id).flow < 1) {
                 continue;
@@ -91,6 +96,7 @@ public class Dinics {
                 break;
             }
             int pushed;
+            Arrays.fill(ptr, 0);
             while ((pushed = dfs(s, largeFlow)) != 0) {
                 flow += pushed;
             }
@@ -105,17 +111,16 @@ public class Dinics {
         private int capacity;
         private int flow;
 
-        public Edge(int str, int dest, int capacity) {
+        public Edge(int src, int dest, int capacity) {
             this.src = src;
-            this.flow = 0;
             this.dest = dest;
+            this.flow = 0;
             this.capacity = capacity;
-            this.flow = flow;
         }
     }
 
     public static void main(String[] args) {
-        Dinics dinics = new Dinics(5, 0, 4);
+        Dinics dinics = new Dinics(5, 0, 1);
         dinics.addEdge(0, 2, 100);
         dinics.addEdge(0, 3, 50);
         dinics.addEdge(2, 1, 5);
